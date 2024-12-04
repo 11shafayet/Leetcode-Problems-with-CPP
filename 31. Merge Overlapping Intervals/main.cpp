@@ -1,9 +1,8 @@
-//{ Driver Code Starts
+
 #include <bits/stdc++.h>
 using namespace std;
 
-
-// } Driver Code Ends
+// Solution 1
 class Solution {
   public:
     vector<vector<int>> mergeOverlap(vector<vector<int>>& arr) {
@@ -26,6 +25,9 @@ class Solution {
       return res;
     }
 };
+
+
+
 
 //{ Driver Code Starts.
 int main() {
