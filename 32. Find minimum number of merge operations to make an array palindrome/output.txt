@@ -1,0 +1,1 @@
+Count of minimum operations is 0
