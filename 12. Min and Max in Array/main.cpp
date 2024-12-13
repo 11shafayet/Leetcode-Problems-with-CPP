@@ -1,3 +1,5 @@
+// https://www.geeksforgeeks.org/problems/find-minimum-and-maximum-element-in-an-array4428/1
+
 #include <bits/stdc++.h>
 using namespace std;
 
