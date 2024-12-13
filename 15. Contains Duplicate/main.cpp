@@ -1,65 +1,40 @@
-
-// https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1
+// https://leetcode.com/problems/contains-duplicate/description/
 
 #include <bits/stdc++.h>
 using namespace std;
 
-
 class Solution {
-  public:
-    // arr : given array
-    // k : find kth smallest element and return using this function
-    int kthSmallest(vector<int> &arr, int k) {
-      // find the maximum value from the array
-      int maxValue = *max_element(arr.begin(), arr.end());
-      
-      // create an array with the length of maxValue + 1 and initialize all the value to 0
-      vector<int> myArray(maxValue + 1, 0);
-      
-      // traverse the main arr and increase the number by 1 in myArray
-      for(auto num : arr) {
-          myArray[num]++;
-      }
-      
-      //  find the kth element as the list is sorted
-      int count = 0;
-      for(int i = 0; i <= maxValue; i++) {
-          count += myArray[i];
-          if(count >= k) {
-              return i;
-          }
-      }
-      
-      return -1;
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (nums[i] == nums[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 };
 
-
 int main() {
-    int test_case;
-    cin >> test_case;  
-    cin.ignore();  
-    while (test_case--) {
-        int k;
-        vector<int> arr;
-        string input;
-        
-        // Read the array of numbers (space-separated)
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-        
-        // Read the value of k
-        getline(cin, input);
-        stringstream ss2(input);
-        ss2 >> k;
-        
-        Solution ob;
-        cout << ob.kthSmallest(arr, k) << endl;
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i];
     }
+
+    Solution solution;
+    bool result = solution.containsDuplicate(nums);
+
+    if(result) {
+        cout << "The array contains duplicates." << endl;
+    } else {
+        cout << "The array does not contain duplicates." << endl;
+    }
+
     return 0;
 }
 
