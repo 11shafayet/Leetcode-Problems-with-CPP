@@ -1,65 +1,63 @@
-
-// https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1
+//https://leetcode.com/problems/search-in-rotated-sorted-array/
 
 #include <bits/stdc++.h>
 using namespace std;
 
-
 class Solution {
-  public:
-    // arr : given array
-    // k : find kth smallest element and return using this function
-    int kthSmallest(vector<int> &arr, int k) {
-      // find the maximum value from the array
-      int maxValue = *max_element(arr.begin(), arr.end());
-      
-      // create an array with the length of maxValue + 1 and initialize all the value to 0
-      vector<int> myArray(maxValue + 1, 0);
-      
-      // traverse the main arr and increase the number by 1 in myArray
-      for(auto num : arr) {
-          myArray[num]++;
-      }
-      
-      //  find the kth element as the list is sorted
-      int count = 0;
-      for(int i = 0; i <= maxValue; i++) {
-          count += myArray[i];
-          if(count >= k) {
-              return i;
-          }
-      }
-      
-      return -1;
+public:
+    int search(vector<int>& nums, int target) {
+        int sizeOfNums = nums.size();
+        int result = -1;
+
+        int leftIndex = 0;
+        int rightIndex = sizeOfNums - 1;
+
+        while(leftIndex <= rightIndex) {
+            int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
+            if(nums[middleIndex] == target) {
+                result = middleIndex;
+                break;
+            }
+
+            // check if the left half is sorted
+            if(nums[middleIndex] >= nums[leftIndex]) {
+                if(target >= nums[leftIndex] && target < nums[middleIndex]) {
+                    rightIndex = middleIndex - 1;
+                } else {
+                    leftIndex = middleIndex + 1;
+                }
+            } else {
+                if(target <= nums[rightIndex] && target > nums[middleIndex]) {
+                    leftIndex = middleIndex + 1;
+                } else {
+                    rightIndex = middleIndex - 1;
+                }
+            }
+        }
+
+        return result;
     }
 };
 
-
 int main() {
-    int test_case;
-    cin >> test_case;  
-    cin.ignore();  
-    while (test_case--) {
-        int k;
-        vector<int> arr;
-        string input;
-        
-        // Read the array of numbers (space-separated)
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-        
-        // Read the value of k
-        getline(cin, input);
-        stringstream ss2(input);
-        ss2 >> k;
-        
-        Solution ob;
-        cout << ob.kthSmallest(arr, k) << endl;
+    int n, target;
+    cin >> n;
+
+    vector<int> nums(n);
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i];
     }
+
+    cin >> target;
+
+    Solution solution;
+    int result = solution.search(nums, target);
+
+    if(result != -1) {
+        cout << "Element found at index: " << result << endl;
+    } else {
+        cout << "Element not found in the array." << endl;
+    }
+
     return 0;
 }
-
