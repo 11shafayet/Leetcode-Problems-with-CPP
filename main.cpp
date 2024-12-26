@@ -1,83 +1,45 @@
-// #include <iostream>
-// #include <vector>
-
-// using namespace std;
-
-// int main()
-// {
-// 	string myString;
-// 	cin >> myString;
-// 	cout << myString;
-
-// 	return 0;
-// }
-
-// #include <iostream>
-// #include <sstream>
-// #include <vector>
-// using namespace std;
-
-// bool result(const vector<int>& arr, int n) {
-// 	long long sum = 0;
-// 	for(int num : arr) {
-// 		sum += num;
-// 	}
-	
-// 	 if (sum % n != 0) {
-//         return false;
-//     }
-
-
-
-//     return true;
-// }
-
-// int main() {
-// 	int t;
-// 	cin >> t;
-
-// 	while(t--) {
-// 		int n;
-// 		cin >> n;
-// 		vector<int> arr(n);
-// 		for(int i = 0; i < n; i++) {
-// 			cin >> arr[i];
-// 		}
-
-// 		cout << (result(arr, n) ? "YES" : "NO") << endl;
-
-// 	}
-
-// 	return 0;
-// }
-
-
 #include <iostream>
+#include <vector>
+#include <set>
 using namespace std;
+
+int minOperations(vector<int> &arr) {
+    set<int> unique;
+    for (int num : arr) {
+        unique.insert(num);
+    }
+    
+    if (unique.count(0)) {
+        return 1; // At least one zero exists, so one operation suffices.
+    }
+    
+    // Check if the MEX of the entire array is 0
+    int mex = 0;
+    for (int num : unique) {
+        if (num != mex) {
+            break;
+        }
+        mex++;
+    }
+    
+    if (mex == 0) {
+        return 1; // The array's MEX is 0, so one operation suffices.
+    } else {
+        return 2; // No zeros and MEX is not 0, so two operations are needed.
+    }
+}
 
 int main() {
     int t;
     cin >> t;
-    
     while (t--) {
         int n;
         cin >> n;
-        
-        long long sum = 0;
-        int a[n];
-        
+        vector<int> arr(n);
         for (int i = 0; i < n; i++) {
-            cin >> a[i];
-            sum += a[i];
+            cin >> arr[i];
         }
-        
-        // Check if sum is divisible by n
-        if (sum % n == 0) {
-            cout << "YES" << endl;
-        } else {
-            cout << "NO" << endl;
-        }
+        cout << minOperations(arr) << endl;
     }
-    
     return 0;
 }
