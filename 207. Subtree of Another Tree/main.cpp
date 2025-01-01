@@ -31,7 +31,7 @@ public:
 
         if(preOrder(root, subRoot)) return true;
 
-        return (preOrder(root->left, subRoot) || preOrder(root->right, subRoot));
+        return (isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot));
     }
 };
 
