@@ -1,5 +1,5 @@
 2
-abcde
-cdeab
-abcde
-abced
+3
+flower flow flight
+2
+dog racecar
