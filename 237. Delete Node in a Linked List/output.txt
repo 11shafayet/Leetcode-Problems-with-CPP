@@ -1,0 +1,2 @@
+Original List: 4 -> 5 -> 1 -> 9
+After Deleting 5: 4 -> 1 -> 9
