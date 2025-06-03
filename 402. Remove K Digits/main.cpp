@@ -1,43 +1,22 @@
-// https://leetcode.com/problems/remove-k-digits/description/
+// https://leetcode.com/problems/search-a-2d-matrix-ii/description/
 
-#include <iostream>
-#include <string>
+#include <bits/stdc++.h>
 #include <vector>
-#include <stack>
-#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
-    string removeKdigits(string num, int k) {
-        string ans = "";
-        stack<char> st;
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int rows = matrix.size(), cols = matrix[0].size();
+        int row = 0, col = cols - 1;
 
-        for(char digit : num) {
-            while(!st.empty() && k > 0 && st.top() > digit) {
-                st.pop();
-                k--;
-            }
-            
-            st.push(digit);
+        while(row < rows && col >= 0) {
+            if(matrix[row][col] == target) return true;
+            else if(target > matrix[row][col]) row++;
+            else col--;
         }
 
-        while(k-- && !st.empty()) {
-            st.pop();
-        }
-
-        while(!st.empty()) {
-            ans += st.top();
-            st.pop();
-        }
-
-        reverse(ans.begin(), ans.end());
-
-        int i = 0;
-        while(i < ans.length() && ans[i] == '0') i++;
-        ans = ans.substr(i);
-
-        return ans.empty() ? "0" : ans;
+        return false;
     }
 };
 
@@ -46,15 +25,21 @@ int main() {
     cin >> t;
 
     while (t--) {
-        string num;
-        int k;
-        cin >> num >> k;
+        int rows, cols, target;
+        cin >> rows >> cols >> target;
 
-        Solution sol;
-        string result = sol.removeKdigits(num, k);
-        cout << "Result: " << result << endl;
+        vector<vector<int>> mat(rows, vector<int>(cols));
+
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                cin >> mat[i][j];
+            }
+        }
+
+        Solution obj;
+        bool found = obj.searchMatrix(mat, target);
+        cout << (found ? "true" : "false") << endl;
     }
 
     return 0;
 }
-
